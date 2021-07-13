@@ -1,0 +1,51 @@
+{% extends "employee_register/base.html "%}
+
+{% block content %}
+
+<p>Show django lists </p>
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full name</td>
+            <td>mobile</td>
+            <td>position</td>
+            <td>emp_code</td>
+            <td>title</td>
+            <td>
+                <a href="{% url 'employee_insert'  %} " class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add new
+                </a>
+            </td>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+{% for emp in context %}
+<tr>
+    <td>{{emp.fullname}} </td>
+    <td> {{emp.mobile}} </td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.emp_code}}</td>
+    <td>{{emp.title}}</td>
+    <td> <a href="{% url 'employee_update' emp.id %} " class="btn text">
+        <i class="far fa-edit fa-lg"></i></a>
+        <form action="{% url 'employee_delete' emp.id %}" method="POST" class="d-inline" >
+            {% csrf_token %}
+            <button type="submit" class="btn">
+                <i class="far fa-trash-all fa-lg text-danger float-right"></i>
+            </button>
+        </form>
+    </td>
+
+</tr>
+
+
+
+{% endfor %}
+
+</tbody>
+</table>
+
+{% endblock content %}
